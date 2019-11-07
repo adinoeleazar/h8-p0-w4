@@ -6,36 +6,33 @@ function countProfit(shoppers) {
 
   // you can only write your code here!
 
-  var result = {
-    product: '',
-    shoppers: [],
-    leftOver: 0,
-    totalProfit: 0
-    }
-    // for (var i = 0; i < listBarang.length; i++) {
+  var display = []
 
-    //     // console.log(result)
-    // }
+  if (shoppers.length === 0) {return []}
 
-    for (var i = 0; i < shoppers.length; i++) {
-        for (var j = 0; j < listBarang.length; j++) {
-            result.product += listBarang[j][0]
-            if (shoppers[i].product === listBarang[j][0]) {
-                result.shoppers.push(shoppers[j].name)
+    for (var i = 0; i < listBarang.length; i++) {
+        
+        var result = {
+            product: listBarang[i][0],
+            shoppers: [],
+            leftOver: listBarang[i][2],
+            totalProfit: 0
+        }
+
+        for (var j = 0; j < shoppers.length; j++) {
+
+            if (shoppers[j].product === result.product) {
+                    if (listBarang[i][2] >= shoppers[j].amount) {
+                    result.shoppers.push(shoppers[j].name)
+                    result.leftOver -= shoppers[j].amount
+                    result.totalProfit += listBarang[i][1] * shoppers[j].amount
+                    listBarang[i][2] -= shoppers[j].amount
+                }
             }
         }
+        display.push(result)
     }
-
-    // for (var i = 0; i < shoppers.length; i++) {
-    //     for (var j = 0; j < listBarang.length; j++) {
-    //         if (shoppers[i].product === listBarang[j][0]) {
-    //             result.shoppers.push(shoppers[i].name)
-    //             result.leftOver -= shoppers[i].amount
-    //             result.totalProfit += listBarang[j][1]
-    //         }
-    //     }
-    // }
-    return result
+return display
 }
 
 // TEST CASES
